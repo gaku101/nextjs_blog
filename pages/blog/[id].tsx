@@ -10,7 +10,7 @@ export default function BlogId({ blog, draftKey }) {
   return (
     <main className={styles.main}>
       <Preview draftKey={draftKey} />
-      <h1 className={styles.title}>{blog.title}</h1>
+      <h1 className={styles.title}>{draftKey}{blog.title}</h1>
       <p className={styles.publishedAt}>{blog.publishedAt}</p>
       <p className="category">{blog.category && `${blog.category.name}`}</p>
       <div
