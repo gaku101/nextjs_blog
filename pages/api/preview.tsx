@@ -11,8 +11,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const content = await client
     .get({
       endpoint: "blog",
-      contentId: req.query.slug,
-      queries: { draftKey: req.query.draftKey },
+      contentId: req.query.slug as string,
+      queries: { draftKey: req.query.draftKey as string },
     })
     .then()
     .catch((error) => console.error(error))
