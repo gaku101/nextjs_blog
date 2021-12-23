@@ -32,7 +32,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const id = context.params.id
   // draftKeyを取得し、クエリを作成する
-  const draftKey = context.previewData.draftKey
+  const draftKey = context.previewData?.draftKey
     ? { draftKey: context.previewData.draftKey }
     : {}
   const data = await client.get({
