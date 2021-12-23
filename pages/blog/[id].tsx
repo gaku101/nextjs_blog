@@ -35,11 +35,13 @@ export const getStaticProps = async (context) => {
   const draftKey = context.previewData?.draftKey
     ? { draftKey: context.previewData.draftKey }
     : {}
+  console.debug("draftKey", draftKey)
   const data = await client.get({
     endpoint: "blog",
     contentId: id,
     queries: draftKey,
   })
+  console.debug("data", data)
 
   return {
     props: {
