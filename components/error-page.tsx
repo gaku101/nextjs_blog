@@ -1,4 +1,4 @@
-export default function Custom404() {
+export default function ErrorPage() {
   return (
     <main className="main">
       <p>ページがありません。</p>
