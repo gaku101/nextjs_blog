@@ -1,13 +1,15 @@
 import ErrorPage from "../../components/error-page"
+import { Preview } from "../../components/preview"
 import { client } from "../../libs/client"
 import styles from "../../styles/Home.module.scss"
 
-export default function BlogId({ blog }) {
+export default function BlogId({ blog, draftKey }) {
   if (!blog) {
     return <ErrorPage />
   }
   return (
     <main className={styles.main}>
+      <Preview draftKey={draftKey} />
       <h1 className={styles.title}>{blog.title}</h1>
       <p className={styles.publishedAt}>{blog.publishedAt}</p>
       <p className="category">{blog.category && `${blog.category.name}`}</p>
@@ -46,6 +48,7 @@ export const getStaticProps = async (context) => {
   return {
     props: {
       blog: data,
+      ...draftKey,
     },
   }
 }

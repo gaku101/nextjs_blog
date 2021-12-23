@@ -1,7 +1,7 @@
 import { client } from "../../libs/client"
+import { NextApiRequest, NextApiResponse } from "next"
 
-
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   // リクエストにスラッグがない場合は404エラーを表示
   if (!req.query.slug) {
     return res.status(404).end()
