@@ -52,7 +52,7 @@ export const HeadTemplate: React.FC<HeadType> = ({
       <meta property="og:type" content="website" />
       <meta property="og:locale" content="ja_JP" />
       <meta property="fb:app_id" content={fbAppId} />
-      // 動的画像のURLをこのように指定することによって、OGPに適用されます。
+      {/* 動的画像のURLをこのように指定することによって、OGPに適用されます。*/}
       <meta property="og:image" content={imgurl} />
       <meta property="og:image:width" content={imgw} />
       <meta property="og:image:height" content={imgh} />
