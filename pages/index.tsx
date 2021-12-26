@@ -7,8 +7,8 @@ export default function Home({ blog }) {
   return (
     <Layout>
       <div className='grid grid-cols-4'>
-        <ArticleList className="col-span-3" articles={blog} />
-        <SideNav />
+        <ArticleList className="col-span-4 sm:col-span-3" articles={blog} />
+        <SideNav className="hidden sm:block" />
       </div>
     </Layout>
   )

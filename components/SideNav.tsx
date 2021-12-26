@@ -1,7 +1,7 @@
-export const SideNav = () => {
+export const SideNav = ({ className }) => {
   return (
     <>
-      <div className="p-4">
+      <div className={`${className} p-4`}>
         <div>SideNav</div>
       </div>
     </>

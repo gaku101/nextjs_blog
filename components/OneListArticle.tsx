@@ -7,7 +7,7 @@ export const OneListArticle = ({ article }) => {
   return (
     <>
       <article>
-        <div className='flex'>
+        <div className='sm:flex'>
           <Link href={`/blog/${article.id}`} passHref>
             <a href={`/blog/${article.id}`}>
               <CustomImage
