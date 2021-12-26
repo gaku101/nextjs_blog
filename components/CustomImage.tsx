@@ -19,12 +19,12 @@ export const CustomImage: React.VFC<Props> = ({
     <picture className={className}>
       <source
         srcSet={`${baseImageUrl}?w=${width}&h=${height}}&blend64=${base64url(
-          `https://assets.imgix.net/~text?txtsize=24&txt-color=009688&w=${
+          `https://assets.imgix.net/~text?txtsize=32&txt-color=001133&w=${
             width - 80
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title
           )}`
-        )}&blend-mode=normal&blend-align=top,left&blend-x=40&blend-y=100`}
+        )}&blend-mode=normal&blend-align=top,left&blend-x=40&blend-y=150`}
         media="(min-width: 1400px)"
         type="image/webp"
       />
@@ -32,7 +32,7 @@ export const CustomImage: React.VFC<Props> = ({
         srcSet={`${baseImageUrl}?w=${width * 0.8}&h=${
           height * 0.8
         }}&blend64=${base64url(
-          `https://assets.imgix.net/~text?txtsize=20&txt-color=009688&w=${
+          `https://assets.imgix.net/~text?txtsize=20&txt-color=001133&w=${
             width - 180
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title
@@ -45,7 +45,7 @@ export const CustomImage: React.VFC<Props> = ({
         srcSet={`${baseImageUrl}?w=${width * 0.6}&h=${
           height * 0.6
         }}&blend64=${base64url(
-          `https://assets.imgix.net/~text?txtsize=16&txt-color=009688&w=${
+          `https://assets.imgix.net/~text?txtsize=16&txt-color=001133&w=${
             width - 240
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title
@@ -59,7 +59,7 @@ export const CustomImage: React.VFC<Props> = ({
         src={`${baseImageUrl}?w=${width * 0.55}&h=${
           height * 0.55
         }}&blend64=${base64url(
-          `https://assets.imgix.net/~text?txtsize=12&txt-color=009688&w=${
+          `https://assets.imgix.net/~text?txtsize=12&txt-color=001133&w=${
             width - 280
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title

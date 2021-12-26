@@ -20,7 +20,7 @@ export default function Home({ blog }) {
                       title={blog?.title}
                     />
                   </div>
-                  <h3>{blog.title}</h3>
+                  <h3 className=''>{blog.title}</h3>
                 </a>
               </Link>
             </article>
