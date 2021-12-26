@@ -16,7 +16,7 @@ export const CustomImage: React.VFC<Props> = ({
   className,
 }) => {
   return (
-    <picture className={className}>
+    <picture>
       <source
         srcSet={`${baseImageUrl}?w=${width}&h=${height}}&blend64=${base64url(
           `https://assets.imgix.net/~text?txtsize=32&txt-color=001133&w=${
@@ -25,8 +25,8 @@ export const CustomImage: React.VFC<Props> = ({
             title
           )}`
         )}&blend-mode=normal&blend-align=top,left&blend-x=40&blend-y=150`}
-        media="(min-width: 1400px)"
-        type="image/webp"
+        media='(min-width: 1400px)'
+        type='image/webp'
       />
       <source
         srcSet={`${baseImageUrl}?w=${width * 0.8}&h=${
@@ -37,9 +37,9 @@ export const CustomImage: React.VFC<Props> = ({
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title
           )}`
-        )}&blend-mode=normal&blend-align=top,left&blend-x=40&blend-y=90`}
-        media="(min-width: 1280px)"
-        type="image/webp"
+        )}&blend-mode=normal&blend-align=top,left&blend-x=40&blend-y=80`}
+        media='(min-width: 1024px)'
+        type='image/webp'
       />
       <source
         srcSet={`${baseImageUrl}?w=${width * 0.6}&h=${
@@ -51,11 +51,12 @@ export const CustomImage: React.VFC<Props> = ({
             title
           )}`
         )}&blend-mode=normal&blend-align=top,left&blend-x=10&blend-y=70`}
-        media="(min-width: 960px)"
-        type="image/webp"
+        media='(min-width: 768px)'
+        type='image/webp'
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        className={className}
         src={`${baseImageUrl}?w=${width * 0.55}&h=${
           height * 0.55
         }}&blend64=${base64url(
