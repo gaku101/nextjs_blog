@@ -1,33 +1,16 @@
-import Link from "next/link"
-import { Fragment } from "react"
-import { CustomImage } from "../components/CustomImage"
+import { ArticleList } from "../components/ArticleList"
+import { Layout } from "../components/Layout"
+import { SideNav } from "../components/SideNav"
 import { client } from "../libs/client"
 
 export default function Home({ blog }) {
   return (
-    <div>
-      <ul>
-        {blog.map((blog) => (
-          <Fragment key={blog.id}>
-            <article>
-              <Link href={`/blog/${blog.id}`} passHref>
-                <a href={`/blog/${blog.id}`}>
-                  <div>
-                    <CustomImage
-                      baseImageUrl={blog.image.url}
-                      width={600}
-                      height={315}
-                      title={blog?.title}
-                    />
-                  </div>
-                  <h3 className=''>{blog.title}</h3>
-                </a>
-              </Link>
-            </article>
-          </Fragment>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <div className='grid grid-cols-4'>
+        <ArticleList className="col-span-3" articles={blog} />
+        <SideNav />
+      </div>
+    </Layout>
   )
 }
 
