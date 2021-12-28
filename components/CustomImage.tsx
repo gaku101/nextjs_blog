@@ -32,7 +32,7 @@ export const CustomImage: React.VFC<Props> = ({
         srcSet={`${baseImageUrl}?w=${width * 0.8}&h=${
           height * 0.8
         }}&blend64=${base64url(
-          `https://assets.imgix.net/~text?txtsize=30&txt-color=001133&w=${
+          `https://assets.imgix.net/~text?txtsize=32&txt-color=001133&w=${
             width - 180
           }&txt-align=middle&txtfont=Hiragino%20Sans%20W6&txt-track=2&txt64=${base64url(
             title
