@@ -1,7 +1,10 @@
+import { useEffect } from "react"
 import { OneListArticle } from "./OneListArticle"
 
 export const ArticleList = ({ className, articles }) => {
-  console.debug("articles", articles)
+  useEffect(() => {
+    console.debug("articles", articles)
+  }, [])
   return (
     <>
       <div className={className}>
