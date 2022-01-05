@@ -1,7 +1,7 @@
-export const Tag = ({ tag }) => {
+export const Tag = ({ tag, className }) => {
   return (
     <>
-      <div className='flex self-center mr-1'>
+      <div className={`flex self-center ${className}`}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='h-4 w-4 xl:h-5 xl:w-5 self-center mr-1'
