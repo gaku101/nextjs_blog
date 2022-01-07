@@ -20,7 +20,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags }) => {
     <Layout>
       <div className='text-2xl mb-4'>
         <Link href='/' passHref>
-          <a href='/' className="text-cyan-700">記事一覧</a>
+          <span className='text-cyan-700'>記事一覧</span>
         </Link>
         &nbsp;&gt;&nbsp;{tagId}&nbsp;
       </div>
