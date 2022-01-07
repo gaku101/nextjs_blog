@@ -5,7 +5,7 @@ type Props = {
   draftKey?: string
 }
 
-export const Preview: VFC<Props> = (props) => {
+export const Preview: React.VFC<Props> = (props) => {
   return (
     <>
       {props.draftKey && (

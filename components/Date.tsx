@@ -1,6 +1,11 @@
 import { parseISO, format } from "date-fns"
 
-export const Date = ({ dateString, className }) => {
+type Props = {
+  dateString: string
+  className: string
+}
+
+export const Date: React.VFC<Props> = ({ dateString, className }) => {
   const date = parseISO(dateString)
   return (
     <time dateTime={dateString}>
@@ -19,7 +24,7 @@ export const Date = ({ dateString, className }) => {
             d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
           />
         </svg>
-        <p className="text-sm xl:text-lg">{format(date, "yyyy/MM/dd")}</p>
+        <p className='text-sm xl:text-lg'>{format(date, "yyyy/MM/dd")}</p>
       </div>
     </time>
   )

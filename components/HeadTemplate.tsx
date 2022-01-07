@@ -11,7 +11,7 @@ export type HeadType = {
   keyword?: string
 }
 
-export const HeadTemplate: React.FC<HeadType> = ({
+export const HeadTemplate: React.VFC<HeadType> = ({
   pagetitle,
   pagedescription,
   pagepath,

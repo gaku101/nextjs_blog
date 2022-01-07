@@ -1,4 +1,9 @@
-export const Category = ({ category, className }) => {
+type Props = {
+  category: Category
+  className: string
+}
+
+export const Category: React.VFC<Props> = ({ category, className }) => {
   return (
     <>
       <div
