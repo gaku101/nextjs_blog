@@ -1,10 +1,16 @@
+import { NextPage } from "next"
 import { useEffect } from "react"
 import { ArticleList } from "../components/ArticleList"
 import { Layout } from "../components/Layout"
 import { SideNav } from "../components/SideNav"
 import { client } from "../libs/client"
 
-export default function Home({ blog, tags }) {
+type Props = {
+  blog: Blog[]
+  tags: Tag[]
+}
+
+const Home: NextPage<Props> = ({ blog, tags }) => {
   useEffect(() => {
     console.debug("tags", tags)
   }, [])
@@ -18,6 +24,8 @@ export default function Home({ blog, tags }) {
   )
 }
 
+export default Home
+
 // データをテンプレートに受け渡す部分の処理
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" })
@@ -25,8 +33,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      blog: blog.contents,
-      tags: tags.contents,
+      blog: blog ? blog.contents : [],
+      tags: tags ? tags.contents : [],
     },
   }
 }

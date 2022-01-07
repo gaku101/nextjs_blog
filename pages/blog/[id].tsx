@@ -1,11 +1,18 @@
-import ErrorPage from "../../components/error-page"
+import { NextPage } from "next"
+import { ParsedUrlQuery } from "querystring"
+import { ErrorPage } from "../../components/error-page"
 import { HeadTemplate } from "../../components/HeadTemplate"
 import { Preview } from "../../components/preview"
 import { client } from "../../libs/client"
 import { createOgImage } from "../../libs/createOgImage"
 import styles from "../../styles/Home.module.scss"
 
-export default function BlogId({ blog, draftKey }) {
+type Props = {
+  blog: Blog
+  draftKey: string
+}
+
+const BlogId: NextPage<Props> = ({ blog, draftKey }) => {
   if (!blog) {
     return <ErrorPage />
   }
@@ -15,13 +22,13 @@ export default function BlogId({ blog, draftKey }) {
       <HeadTemplate
         pagetitle={blog.title}
         pagedescription={blog.title}
-        pagepath="blogs"
+        pagepath='blogs'
         postimg={ogImageUrl}
       />
       <Preview draftKey={draftKey} />
       <h1 className={styles.title}>{blog.title}</h1>
       <p className={styles.publishedAt}>{blog.publishedAt}</p>
-      <p className="category">{blog.category && `${blog.category.name}`}</p>
+      <p className='category'>{blog.category && `${blog.category.name}`}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: `${blog.body}`,
@@ -32,23 +39,35 @@ export default function BlogId({ blog, draftKey }) {
   )
 }
 
+export default BlogId
+
 // 静的生成のためのパスを指定
 export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: "blog" })
-  const paths = data.contents.map((content) => `/blog/${content.id}`)
+  const paths = data.contents.map((content: Blog) => `/blog/${content.id}`)
   return { paths, fallback: true }
 }
 
+type GetStaticPropsContext<Q extends ParsedUrlQuery = ParsedUrlQuery> = {
+  params?: Q | undefined
+  preview?: boolean | undefined
+  previewData?: {
+    draftKey: string
+  }
+  locale?: string | undefined
+  locales?: string[] | undefined
+  defaultLocale?: string | undefined
+}
 // データをテンプレートに受け渡す部分の処理
-export const getStaticProps = async (context) => {
-  const id = context.params.id
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const id = context.params ? context.params.id : ""
   // draftKeyを取得し、クエリを作成する
   const draftKey = context.previewData?.draftKey
     ? { draftKey: context.previewData.draftKey }
     : {}
   const data = await client.get({
     endpoint: "blog",
-    contentId: id,
+    contentId: id as string,
     queries: draftKey,
   })
 

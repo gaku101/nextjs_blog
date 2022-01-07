@@ -1,7 +1,12 @@
 import { useEffect } from "react"
-import { OneListArticle } from "./OneListArticle"
+import { Article } from "./Article"
 
-export const ArticleList = ({ className, articles }) => {
+type Props = {
+  articles: Blog[]
+  className: string
+}
+
+export const ArticleList: React.VFC<Props> = ({ articles, className }) => {
   useEffect(() => {
     console.debug("articles", articles)
   }, [])
@@ -10,7 +15,7 @@ export const ArticleList = ({ className, articles }) => {
       <div className={className}>
         {articles && articles.length ? (
           articles.map((article) => (
-            <OneListArticle article={article} key={article.id} />
+            <Article article={article} key={article.id} />
           ))
         ) : (
           <p>None are present. Why not add one?</p>

@@ -1,6 +1,6 @@
-export default function ErrorPage() {
+export const ErrorPage: React.VFC = () => {
   return (
-    <main className="main">
+    <main className='main'>
       <p>ページがありません。</p>
     </main>
   )

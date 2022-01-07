@@ -4,7 +4,11 @@ import { CustomImage } from "./CustomImage"
 import { Date } from "./Date"
 import { Tag } from "./Tag"
 
-export const OneListArticle = ({ article }) => {
+type Props = {
+  article: Blog
+}
+
+export const Article: React.VFC<Props> = ({ article }) => {
   return (
     <>
       <article>
