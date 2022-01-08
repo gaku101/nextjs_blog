@@ -2,7 +2,7 @@ import { parseISO, format } from "date-fns"
 
 type Props = {
   dateString: string
-  className: string
+  className?: string
 }
 
 export const Date: React.VFC<Props> = ({ dateString, className }) => {

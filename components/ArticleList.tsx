@@ -3,24 +3,21 @@ import { Article } from "./Article"
 
 type Props = {
   articles: Blog[]
-  className: string
 }
 
-export const ArticleList: React.VFC<Props> = ({ articles, className }) => {
+export const ArticleList: React.VFC<Props> = ({ articles }) => {
   useEffect(() => {
     console.debug("articles", articles)
-  }, [])
+  })
   return (
-    <>
-      <div className={className}>
-        {articles && articles.length ? (
-          articles.map((article) => (
-            <Article article={article} key={article.id} />
-          ))
-        ) : (
-          <p>None are present. Why not add one?</p>
-        )}
-      </div>
-    </>
+    <div className="bg-white p-4">
+      {articles && articles.length ? (
+        articles.map((article) => (
+          <Article article={article} key={article.id} />
+        ))
+      ) : (
+        <p>None are present. Why not add one?</p>
+      )}
+    </div>
   )
 }

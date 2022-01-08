@@ -1,9 +1,7 @@
 import { GetStaticPropsContext, NextPage } from "next"
-import Link from "next/link"
 import { useEffect } from "react"
 import { ArticleList } from "../components/ArticleList"
 import { Layout } from "../components/Layout"
-import { SideNav } from "../components/SideNav"
 import { client } from "../libs/client"
 
 type Props = {
@@ -15,19 +13,10 @@ type Props = {
 const TagId: NextPage<Props> = ({ tagId, blog, tags }) => {
   useEffect(() => {
     console.debug("tags", tags)
-  }, [])
+  })
   return (
-    <Layout>
-      <div className='text-2xl mb-4'>
-        <Link href='/' passHref>
-          <span className='text-cyan-700'>記事一覧</span>
-        </Link>
-        &nbsp;&gt;&nbsp;{tagId}&nbsp;
-      </div>
-      <div className='grid grid-cols-4'>
-        <ArticleList className='col-span-4 lg:col-span-3' articles={blog} />
-        <SideNav className='hidden lg:block' tags={tags} />
-      </div>
+    <Layout tags={tags} tagId={tagId}>
+      <ArticleList articles={blog} />
     </Layout>
   )
 }

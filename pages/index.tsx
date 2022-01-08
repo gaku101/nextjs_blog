@@ -2,7 +2,6 @@ import { NextPage } from "next"
 import { useEffect } from "react"
 import { ArticleList } from "../components/ArticleList"
 import { Layout } from "../components/Layout"
-import { SideNav } from "../components/SideNav"
 import { client } from "../libs/client"
 
 type Props = {
@@ -13,13 +12,10 @@ type Props = {
 const Home: NextPage<Props> = ({ blog, tags }) => {
   useEffect(() => {
     console.debug("tags", tags)
-  }, [])
+  })
   return (
-    <Layout>
-      <div className='grid grid-cols-4'>
-        <ArticleList className='col-span-4 lg:col-span-3' articles={blog} />
-        <SideNav className='hidden lg:block' tags={tags} />
-      </div>
+    <Layout tags={tags}>
+      <ArticleList articles={blog} />
     </Layout>
   )
 }
