@@ -20,12 +20,12 @@ type Props = {
 }
 
 const BlogId: NextPage<Props> = ({ blog, draftKey, tags }) => {
-  if (!blog) {
-    return <ErrorPage />
-  }
   useEffect(() => {
     console.debug("blog", blog)
   })
+  if (!blog) {
+    return <ErrorPage />
+  }
   const { ogImageUrl } = createOgImage(blog?.image?.url, blog.title)
   return (
     <Layout tags={tags}>
