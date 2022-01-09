@@ -1,24 +1,34 @@
 import { NextPage } from "next"
 import { ParsedUrlQuery } from "querystring"
+import { Date } from "../../components/Date"
+import { Category } from "../../components/Category"
+import { Tag } from "../../components/Tag"
 import { ErrorPage } from "../../components/error-page"
 import { HeadTemplate } from "../../components/HeadTemplate"
+import { Layout } from "../../components/Layout"
 import { Preview } from "../../components/preview"
 import { client } from "../../libs/client"
 import { createOgImage } from "../../libs/createOgImage"
 import styles from "../../styles/Home.module.scss"
+import { useEffect } from "react"
+import { CustomImage } from "../../components/CustomImage"
 
 type Props = {
   blog: Blog
   draftKey: string
+  tags: Tag[]
 }
 
-const BlogId: NextPage<Props> = ({ blog, draftKey }) => {
+const BlogId: NextPage<Props> = ({ blog, draftKey, tags }) => {
+  useEffect(() => {
+    console.debug("blog", blog)
+  })
   if (!blog) {
     return <ErrorPage />
   }
   const { ogImageUrl } = createOgImage(blog?.image?.url, blog.title)
   return (
-    <main className={styles.main}>
+    <Layout tags={tags}>
       <HeadTemplate
         pagetitle={blog.title}
         pagedescription={blog.title}
@@ -26,16 +36,37 @@ const BlogId: NextPage<Props> = ({ blog, draftKey }) => {
         postimg={ogImageUrl}
       />
       <Preview draftKey={draftKey} />
-      <h1 className={styles.title}>{blog.title}</h1>
-      <p className={styles.publishedAt}>{blog.publishedAt}</p>
-      <p className='category'>{blog.category && `${blog.category.name}`}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.body}`,
-        }}
-        className={styles.post}
-      />
-    </main>
+      <main className=' bg-white p-4 sm:p-10 lg:p-12 xl:p-16 rounded-lg'>
+        <CustomImage
+          baseImageUrl={blog.image.url}
+          width={640}
+          height={400}
+          title={blog?.title}
+          className='w-full mb-10'
+        />
+        <h1 className='text-3xl xl:text-4xl font-bold mb-4'>{blog.title}</h1>
+        <Date dateString={blog.publishedAt} className='mb-2' />
+        <div className='flex mb-10'>
+          {blog.category && (
+            <Category
+              category={blog.category}
+              className='border-cyan-700 mr-2 text-cyan-700'
+            />
+          )}
+          {blog.tags &&
+            !!blog.tags.length &&
+            blog.tags.map((tag) => (
+              <Tag tag={tag} key={tag.id} className='mr-1 text-cyan-700' />
+            ))}
+        </div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `${blog.body}`,
+          }}
+          className={styles.post}
+        />
+      </main>
+    </Layout>
   )
 }
 
@@ -70,10 +101,13 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     contentId: id as string,
     queries: draftKey,
   })
-
+  const tags = await client.get({ endpoint: "tags" })
+  console.debug("tags", tags)
+  console.debug("draftKey", draftKey)
   return {
     props: {
       blog: data,
+      tags: tags ? tags.contents : [],
       ...draftKey,
     },
   }

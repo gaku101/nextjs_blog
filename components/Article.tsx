@@ -12,7 +12,7 @@ export const Article: React.VFC<Props> = ({ article }) => {
   return (
     <>
       <article>
-        <div className='sm:grid sm:grid-cols-3 py-4'>
+        <div className='sm:grid sm:grid-cols-3 mb-4'>
           <div className='col-span-1'>
             <Link href={`/blog/${article.id}`} passHref>
               <a href={`/blog/${article.id}`}>
@@ -26,7 +26,7 @@ export const Article: React.VFC<Props> = ({ article }) => {
               </a>
             </Link>
           </div>
-          <div className='py-1 px-2 sm:px-0 sm:pl-6 col-span-2'>
+          <div className='py-1 px-4 col-span-2'>
             <h3 className='font-bold text-xl lg:text-lg xl:text-3xl'>
               {article.title}
             </h3>
