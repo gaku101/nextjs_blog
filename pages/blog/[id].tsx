@@ -12,14 +12,18 @@ import { createOgImage } from "../../libs/createOgImage"
 import styles from "../../styles/Home.module.scss"
 import { useEffect } from "react"
 import { CustomImage } from "../../components/CustomImage"
+import cheerio from "cheerio"
+import hljs from "highlight.js"
+import "highlight.js/styles/night-owl.css"
 
 type Props = {
   blog: Blog
   draftKey: string
   tags: Tag[]
+  highlightedBody: string
 }
 
-const BlogId: NextPage<Props> = ({ blog, draftKey, tags }) => {
+const BlogId: NextPage<Props> = ({ blog, draftKey, tags, highlightedBody }) => {
   useEffect(() => {
     console.debug("blog", blog)
   })
@@ -61,7 +65,7 @@ const BlogId: NextPage<Props> = ({ blog, draftKey, tags }) => {
         </div>
         <div
           dangerouslySetInnerHTML={{
-            __html: `${blog.body}`,
+            __html: highlightedBody,
           }}
           className={styles.post}
         />
@@ -102,13 +106,22 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     queries: draftKey,
   })
   const tags = await client.get({ endpoint: "tags" })
-  console.debug("tags", tags)
-  console.debug("draftKey", draftKey)
+
+  const $ = cheerio.load(data.body)
+
+  $("pre code").each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text())
+    $(elm).html(result.value)
+    $(elm).addClass("hljs")
+  })
+  console.debug("cheerio", $.html())
+
   return {
     props: {
       blog: data,
       tags: tags ? tags.contents : [],
       ...draftKey,
+      highlightedBody: $.html(),
     },
   }
 }
