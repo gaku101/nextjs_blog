@@ -33,3 +33,7 @@ declare interface Image {
   height: number
   width: number
 }
+
+declare interface BlogsApiResponse {
+  contents: Blog[]
+}
