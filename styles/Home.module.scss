@@ -24,4 +24,8 @@
     list-style-type: decimal;
     list-style-position: inside;
   }
+
+  & > blockquote {
+    @apply border-l-4 border-l-gray-300 pl-2 text-gray-500;
+  }
 }
