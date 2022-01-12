@@ -20,7 +20,7 @@ const Search: NextPage<Props> = ({ tags }) => {
   if (!data) return <p>Loading...</p>
 
   return (
-    <Layout tags={tags}>
+    <Layout tags={tags} searchedBy={q as string}>
       <ArticleList articles={data ? data.contents : []} />
     </Layout>
   )

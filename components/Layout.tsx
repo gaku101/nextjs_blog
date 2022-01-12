@@ -5,18 +5,18 @@ import { SideNav } from "./SideNav"
 type Props = {
   children: React.ReactNode
   tags: Tag[]
-  tagId?: string
+  searchedBy?: string
 }
-export const Layout: React.VFC<Props> = ({ children, tags, tagId }) => {
+export const Layout: React.VFC<Props> = ({ children, tags, searchedBy }) => {
   return (
     <div className='pb-4 px-8 md:px-10 lg:px-30 xl:px-40'>
       <Header />
-      {tagId && (
+      {searchedBy && (
         <div className='text-2xl mb-4'>
           <Link href='/' passHref>
             <span className='text-cyan-700'>記事一覧</span>
           </Link>
-          &nbsp;&gt;&nbsp;{tagId}&nbsp;
+          &nbsp;&gt;&nbsp;{searchedBy}&nbsp;
         </div>
       )}
 
