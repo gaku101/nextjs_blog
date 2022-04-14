@@ -15,7 +15,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags }) => {
     console.debug("tags", tags)
   })
   return (
-    <Layout tags={tags} tagId={tagId}>
+    <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
     </Layout>
   )
