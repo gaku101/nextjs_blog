@@ -1,9 +1,10 @@
-import { NextPage } from "next"
+import { GetStaticPropsContext, NextPage } from "next"
 import { useEffect } from "react"
 import { ArticleList } from "../../../components/ArticleList"
 import { Layout } from "../../../components/Layout"
 import { client } from "../../../libs/client"
 import { Pagination } from "../../../components/Pagination"
+import { useRouter } from "next/router"
 
 const PER_PAGE = 5
 
@@ -14,13 +15,12 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ blog, tags, totalCount }) => {
-  useEffect(() => {
-    console.debug("tags", tags)
-  })
+  const router = useRouter()
+  const { id } = router.query
   return (
     <Layout tags={tags}>
       <ArticleList articles={blog} />
-      <Pagination totalCount={totalCount} />
+      <Pagination totalCount={totalCount} currentPage={Number(id)} />
     </Layout>
   )
 }
@@ -43,10 +43,11 @@ export const getStaticPaths = async () => {
 }
 
 // データをテンプレートに受け渡す部分の処理
-export const getStaticProps = async () => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const id = context.params ? context.params.id : ""
   const blog = await client.get({
     endpoint: "blog",
-    queries: { offset: 0, limit: 5 },
+    queries: { offset: (Number(id) - 1) * 5, limit: 5 },
   })
   const tags = await client.get({ endpoint: "tags" })
 

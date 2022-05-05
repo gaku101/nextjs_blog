@@ -18,7 +18,7 @@ const Home: NextPage<Props> = ({ blog, tags, totalCount }) => {
   return (
     <Layout tags={tags}>
       <ArticleList articles={blog} />
-      <Pagination totalCount={totalCount} />
+      <Pagination totalCount={totalCount} currentPage={1} />
     </Layout>
   )
 }
