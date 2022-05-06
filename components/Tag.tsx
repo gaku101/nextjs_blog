@@ -8,7 +8,7 @@ type Props = {
 export const Tag: React.VFC<Props> = ({ tag, className }) => {
   return (
     <>
-      <Link href={`/${tag.id}`} passHref>
+      <Link href={`/tag/${tag.id}/page/${1}`} passHref>
         <div className={`flex self-center ${className}`}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
