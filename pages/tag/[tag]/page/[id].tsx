@@ -20,7 +20,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
       <Pagination
-        totalCount={totalCount}
+        totalCount={1}
         currentPage={Number(id)}
         url={`/tag/${tag}/page`}
       />
@@ -64,7 +64,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       limit: PER_PAGE,
     },
   })
-  console.log('totalCount', blog.totalCount)
   const tags = await client.get({ endpoint: "tags" })
 
   return {
@@ -72,7 +71,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       tagId: tagId,
       blog: blog ? blog.contents : [],
       tags: tags ? tags.contents : [],
-      totalCount: blog ? blog.totalCount : 1,
+      totalCount: blog.totalCount,
     },
   }
 }
