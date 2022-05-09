@@ -20,7 +20,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
       <Pagination
-        totalCount={2}
+        totalCount={totalCount}
         currentPage={Number(id)}
         url={`/tag/${tag}/page`}
       />
