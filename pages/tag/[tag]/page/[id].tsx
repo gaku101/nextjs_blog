@@ -15,7 +15,7 @@ type Props = {
 
 const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
   const router = useRouter()
-  const { tag, id } = router.query
+  const { id } = router.query
   return (
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
