@@ -72,7 +72,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       tagId: tagId,
       blog: blog ? blog.contents : [],
       tags: tags ? tags.contents : [],
-      totalCount: blog ? blog.totalCount : 0,
+      totalCount: blog ? blog.totalCount : 1,
     },
   }
 }
