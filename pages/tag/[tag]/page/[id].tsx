@@ -23,7 +23,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
       <Pagination
         totalCount={totalCount}
         currentPage={Number(id)}
-        url={`/tag/${tag}/page`}
+        url={`/tag/${tag ? tag : ''}/page`}
       />
     </Layout>
   )
@@ -47,7 +47,6 @@ export const getStaticPaths = async () => {
     const path = range(1, Math.ceil(blog.totalCount / PER_PAGE)).map(
       (page) => `/tag/${item.id}/page/${page}`
     )
-    console.log("path", path)
     paths.push(...path)
   }
   console.log("paths", paths)
