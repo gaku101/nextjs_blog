@@ -15,14 +15,14 @@ type Props = {
 
 const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
   const router = useRouter()
-  const { id } = router.query
+  const { tag, id } = router.query
   return (
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
       <Pagination
         totalCount={2}
-        currentPage={1}
-        url={`/tag/tag/page`}
+        currentPage={Number(id)}
+        url={`/tag/${tag}/page`}
       />
     </Layout>
   )
@@ -64,6 +64,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       limit: PER_PAGE,
     },
   })
+  console.log('totalCount', blog.totalCount)
   const tags = await client.get({ endpoint: "tags" })
 
   return {
