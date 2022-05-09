@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage } from "next"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
 import { ArticleList } from "../../../../components/ArticleList"
 import { Layout } from "../../../../components/Layout"
 import { Pagination } from "../../../../components/Pagination"
@@ -23,7 +22,7 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
       <Pagination
         totalCount={totalCount}
         currentPage={Number(id)}
-        url={`/tag/${tag ? tag : ''}/page`}
+        url={`/tag/${tag}/page`}
       />
     </Layout>
   )
@@ -50,7 +49,7 @@ export const getStaticPaths = async () => {
     paths.push(...path)
   }
   console.log("paths", paths)
-  return { paths, fallback: true }
+  return { paths: paths.length ? paths : [], fallback: true }
 }
 
 // データをテンプレートに受け渡す部分の処理
