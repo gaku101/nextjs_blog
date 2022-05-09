@@ -114,7 +114,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     $(elm).html(result.value)
     $(elm).addClass("hljs")
   })
-  console.debug("cheerio", $.html())
 
   return {
     props: {

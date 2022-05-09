@@ -1,12 +1,11 @@
 import { GetStaticPropsContext, NextPage } from "next"
-import { useEffect } from "react"
 import { ArticleList } from "../../../components/ArticleList"
 import { Layout } from "../../../components/Layout"
 import { client } from "../../../libs/client"
+import { PER_PAGE } from "../../../libs/pagination"
 import { Pagination } from "../../../components/Pagination"
 import { useRouter } from "next/router"
 
-const PER_PAGE = 5
 
 type Props = {
   blog: Blog[]
@@ -20,7 +19,7 @@ const Home: NextPage<Props> = ({ blog, tags, totalCount }) => {
   return (
     <Layout tags={tags}>
       <ArticleList articles={blog} />
-      <Pagination totalCount={totalCount} currentPage={Number(id)} />
+      <Pagination totalCount={totalCount} currentPage={Number(id)} url="/blog/page" />
     </Layout>
   )
 }
@@ -29,8 +28,6 @@ export default Home
 
 export const getStaticPaths = async () => {
   const repos = await client.get({ endpoint: "blog" })
-
-  const pageNumbers = []
 
   const range = (start: number, end: number) =>
     [...Array(end - start + 1)].map((_, i) => start + i)
@@ -47,7 +44,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const id = context.params ? context.params.id : ""
   const blog = await client.get({
     endpoint: "blog",
-    queries: { offset: (Number(id) - 1) * 5, limit: 5 },
+    queries: { offset: (Number(id) - 1) * PER_PAGE, limit: PER_PAGE },
   })
   const tags = await client.get({ endpoint: "tags" })
 
