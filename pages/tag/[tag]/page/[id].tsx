@@ -19,11 +19,11 @@ const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
   return (
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
-      <Pagination
+      {/* <Pagination
         totalCount={totalCount}
         currentPage={Number(id)}
         url={`/tag/${tag}/page`}
-      />
+      /> */}
     </Layout>
   )
 }
@@ -49,7 +49,7 @@ export const getStaticPaths = async () => {
     paths.push(...path)
   }
   console.log("paths", paths)
-  return { paths: paths.length ? paths : [], fallback: true }
+  return { paths, fallback: true }
 }
 
 // データをテンプレートに受け渡す部分の処理
