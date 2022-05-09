@@ -6,9 +6,6 @@ type Props = {
 }
 
 export const ArticleList: React.VFC<Props> = ({ articles }) => {
-  useEffect(() => {
-    console.debug("articles", articles)
-  })
   return (
     <div className="bg-white p-4">
       {articles && articles.length ? (

@@ -1,8 +1,8 @@
 import { NextPage } from "next"
-import { useEffect } from "react"
 import { ArticleList } from "../components/ArticleList"
 import { Layout } from "../components/Layout"
 import { client } from "../libs/client"
+import { PER_PAGE } from "../libs/pagination"
 import { Pagination } from "../components/Pagination"
 
 type Props = {
@@ -12,13 +12,10 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ blog, tags, totalCount }) => {
-  useEffect(() => {
-    console.debug("tags", tags)
-  })
   return (
     <Layout tags={tags}>
       <ArticleList articles={blog} />
-      <Pagination totalCount={totalCount} currentPage={1} />
+      <Pagination totalCount={totalCount} currentPage={1} url='/blog/page' />
     </Layout>
   )
 }
@@ -29,7 +26,7 @@ export default Home
 export const getStaticProps = async () => {
   const blog = await client.get({
     endpoint: "blog",
-    queries: { offset: 0, limit: 5 },
+    queries: { offset: 0, limit: PER_PAGE },
   })
   const tags = await client.get({ endpoint: "tags" })
 

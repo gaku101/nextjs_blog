@@ -1,24 +1,30 @@
 import { GetStaticPropsContext, NextPage } from "next"
+import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { ArticleList } from "../../../../components/ArticleList"
 import { Layout } from "../../../../components/Layout"
+import { Pagination } from "../../../../components/Pagination"
 import { client } from "../../../../libs/client"
-
-const PER_PAGE = 5
+import { PER_PAGE } from "../../../../libs/pagination"
 
 type Props = {
   tagId: string
   blog: Blog[]
   tags: Tag[]
+  totalCount: number
 }
 
-const TagId: NextPage<Props> = ({ tagId, blog, tags }) => {
-  useEffect(() => {
-    console.debug("tags", tags)
-  })
+const TagId: NextPage<Props> = ({ tagId, blog, tags, totalCount }) => {
+  const router = useRouter()
+  const { tag, id } = router.query
   return (
     <Layout tags={tags} searchedBy={tagId}>
       <ArticleList articles={blog} />
+      <Pagination
+        totalCount={totalCount}
+        currentPage={Number(id)}
+        url={`/tag/${tag}/page`}
+      />
     </Layout>
   )
 }
@@ -41,7 +47,6 @@ export const getStaticPaths = async () => {
     const path = range(1, Math.ceil(blog.totalCount / PER_PAGE)).map(
       (page) => `/tag/${item.id}/page/${page}`
     )
-    console.log("path", path)
     paths.push(...path)
   }
   return { paths, fallback: true }
@@ -49,12 +54,14 @@ export const getStaticPaths = async () => {
 
 // データをテンプレートに受け渡す部分の処理
 export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const id = context.params ? context.params.id : ""
   const tagId = context.params ? context.params.tag : ""
-  console.log("context.params", context.params)
   const blog = await client.get({
     endpoint: "blog",
     queries: {
       filters: `tags[contains]${tagId}`,
+      offset: (Number(id) - 1) * PER_PAGE,
+      limit: PER_PAGE,
     },
   })
   const tags = await client.get({ endpoint: "tags" })
@@ -64,6 +71,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       tagId: tagId,
       blog: blog ? blog.contents : [],
       tags: tags ? tags.contents : [],
+      totalCount: blog.totalCount,
     },
   }
 }

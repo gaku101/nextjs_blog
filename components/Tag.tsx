@@ -9,7 +9,7 @@ export const Tag: React.VFC<Props> = ({ tag, className }) => {
   return (
     <>
       <Link href={`/tag/${tag.id}/page/${1}`} passHref>
-        <div className={`flex self-center ${className}`}>
+        <div className={`flex self-center hover:cursor-pointer hover:opacity-50 ${className}`}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-4 w-4 xl:h-5 xl:w-5 self-center mr-1'
